@@ -5,7 +5,7 @@ This is a fast, simple and super lightweight IPv6 network scanner with graphical
 You can download the already compiled IPv6 scanner [here](/releases/latest) (releases). 
 
 ## Screenshot
-<img src="img/01.jpg">
+<img src="img/01.JPG">
 
 ## Changelog
 - V 0.9.2.1 - Project star. Basic IP & MAC-Discovery.
