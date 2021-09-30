@@ -4,7 +4,7 @@ using SharpPcap;
 using System.Net;
 using System.Net.NetworkInformation;
 
-class PingPacket
+class PacketBuilder
 {
     public Packet buildPacket(ILiveDevice pLiveDevice, string pMulticastScopeAddress)
     {
