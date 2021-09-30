@@ -34,26 +34,11 @@ class Scan
 
         Thread scanThread = new Thread(()=> threadMethod(pMulticastAddress));
         scanThread.Start();
-    }
-
+    }    
+    
     /// <summary>
-    /// Stops the active scan
+    /// 
     /// </summary>
-    public void stopScan()
-    {
-        scanStatus = false;
-        liveDevice.StopCapture();
-    }
-
-    /// <summary>
-    /// Returns the list with the scanned network participants
-    /// </summary>
-    /// <returns></returns>
-    public List<Host> retrievHosts()
-    {
-        return hostList;
-    }
-
     private void threadMethod(string pMulticastAddress)
     {
         while (scanStatus)
@@ -62,7 +47,7 @@ class Scan
             Thread.Sleep(5000);
         }
     }
-
+    
     /// <summary>
     /// Builds an ICMPv6 ping request packet and sends it over the specified network gateway.
     /// </summary>
@@ -78,8 +63,7 @@ class Scan
             mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Error! The network adapter cannot be used!";
         }
     }
-
-
+    
     /// <summary>
     /// Receives ICMPv6 echo replies and evaluates the IPv6 and MAC address.
     /// If a device is not present in the list, this is recorded.
@@ -118,4 +102,22 @@ class Scan
             }
         }
     }
+
+    /// <summary>
+    /// Stops the active scan
+    /// </summary>
+    public void stopScan()
+    {
+        scanStatus = false;
+        liveDevice.StopCapture();
+    }
+
+    /// <summary>
+    /// Returns the list with the scanned network participants
+    /// </summary>
+    /// <returns></returns>
+    public List<Host> retrievHosts()
+    {
+        return hostList;
+    }    
 }
