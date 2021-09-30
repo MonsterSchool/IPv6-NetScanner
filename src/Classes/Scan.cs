@@ -8,7 +8,7 @@ using System.Threading;
 class Scan
 {
     private MainForm mainForm;
-    private PingPacket ping = new PingPacket();
+    private PacketBuilder networkPacket = new PacketBuilder();
     private ILiveDevice liveDevice;
     private List<Host> hostList = new List<Host>();
 
@@ -53,7 +53,7 @@ class Scan
     /// </summary>
     private void performNetworkscan(string pMulticastAddress)
     {
-        PacketDotNet.Packet packet = ping.buildPacket(liveDevice, pMulticastAddress);
+        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pMulticastAddress);
         if (packet != null)
         {
             liveDevice.SendPacket(packet);
