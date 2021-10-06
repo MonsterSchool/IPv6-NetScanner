@@ -1,3 +1,7 @@
+<a>
+    <img src="/src/Resources/load.gif" alt="Logo" title="IPv6-NetScanner" align="right" height="60" />
+</a>
+
 # IPv6 Network Scanner
 This is a fast, simple and super lightweight IPv6 network scanner with graphical interface written with C#, SharpPcap and NetDotNet.
 
