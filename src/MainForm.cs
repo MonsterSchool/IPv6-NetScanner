@@ -1,8 +1,11 @@
 ﻿using SharpPcap;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 
 namespace IPv6_NetScanner
@@ -13,13 +16,13 @@ namespace IPv6_NetScanner
         private static ILiveDevice liveDevice;
 
         // Classes
-        private static CaptureDeviceList deviceList;        
+        private static CaptureDeviceList deviceList;
         private static Scan scan = new Scan();
 
         // Variables
         private IPAddress localIPv6;
         private static List<IPAddress> localIPv6AddrCollection;
-        private string multicastAddress = "FF02::1";
+
 
         public MainForm()
         {
@@ -40,7 +43,7 @@ namespace IPv6_NetScanner
                     btnScanNet.Text = "Stop Networkscan";
                     lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
                     picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
-                    scan.scanNetwork(this, liveDevice, localIPv6, multicastAddress);
+                    scan.scanNetwork(this, liveDevice, localIPv6);
 
                 }
                 else
@@ -67,7 +70,7 @@ namespace IPv6_NetScanner
                     dUpDoDevice.Items.Add(dev.Description);
                 }
             }
-            
+
             foreach (IPAddress addr in localIPv6AddrCollection)
             {
                 if (addr.AddressFamily == AddressFamily.InterNetworkV6)
@@ -107,7 +110,7 @@ namespace IPv6_NetScanner
                 {
                     localIPv6 = addr;
                 }
-            }            
+            }
         }
 
         private void btnShowHosts_Click(object sender, EventArgs e)
@@ -118,8 +121,8 @@ namespace IPv6_NetScanner
             }
 
             foreach (Host host in scan.retrievHosts())
-            {
-                string[] row = new string[] { "-", host.ipAddress.ToString(), host.physicalAddress.ToString() };
+            {                
+                string[] row = new string[] { "-", host.ipAddress.ToString(), host.physicalAddress.ToString(), host.info, getManufacturer(host.physicalAddress.ToString()) };
                 dataGV.Rows.Add(row);
             }
         }
@@ -129,6 +132,27 @@ namespace IPv6_NetScanner
             Environment.Exit(0);
         }
 
+
+        private string getManufacturer(string pPhysicalAddress)
+        {
+            string manufacturer = "Not Found";
+            const Int32 BufferSize = 128;
+            using (var fileStream = File.OpenRead(@"mac-vendor.txt"))
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
+            {
+                String line;
+                while ((line = streamReader.ReadLine()) != null)
+                {
+                    if (line.Contains(pPhysicalAddress.Substring(0, 6)))
+                    {
+                        manufacturer = line.Remove(0, 6);
+                        break;
+                    }                        
+                }                    
+            }
+
+            return manufacturer;
+        }
 
         private List<IPAddress> getLocalIPs()
         {

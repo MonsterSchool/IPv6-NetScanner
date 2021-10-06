@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\mac-vendor.txt" />
     <None Include="Resources\load.gif" />
   </ItemGroup>
   <ItemGroup>

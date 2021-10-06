@@ -69,5 +69,35 @@ namespace IPv6_NetScanner.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die 000000	Officially Xerox
+        ///000001	SuperLAN-2U
+        ///000002	BBN (was internal usage only, no longer used)
+        ///000003	XEROX CORPORATION
+        ///000004	XEROX CORPORATION
+        ///000005	XEROX CORPORATION
+        ///000006	XEROX CORPORATION
+        ///000007	XEROX CORPORATION
+        ///000008	XEROX CORPORATION
+        ///000009	powerpipes?
+        ///00000A	OMRON TATEISI ELECTRONICS CO.
+        ///00000B	MATRIX CORPORATION
+        ///00000C	Cisco
+        ///00000D	FIBRONICS LTD.
+        ///00000E	Fujitsu
+        ///00000F	Next
+        ///000010	Hughes
+        ///000011	Tektrnix
+        ///000012	INFORMATION TECHNOLOGY LIMITED
+        ///000013	Camex
+        ///000014	Netronix
+        ///000015	Datapoint Corporat [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string mac_vendor {
+            get {
+                return ResourceManager.GetString("mac_vendor", resourceCulture);
+            }
+        }
     }
 }

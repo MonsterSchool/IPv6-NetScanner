@@ -6,7 +6,9 @@ using System.Net.NetworkInformation;
 
 class PacketBuilder
 {
-    public Packet buildPacket(ILiveDevice pLiveDevice, IPAddress pLocalIPv6, string pMulticastScopeAddress)
+    private string[] multiAddr = { "FF01::1", "FF01::2", "FF02::1", "FF02::2" };
+
+    public Packet buildPacket(ILiveDevice pLiveDevice, IPAddress pLocalIPv6, int pMultiAddrIndex)
     {
         if (pLiveDevice.MacAddress != null)
         {
@@ -16,7 +18,6 @@ class PacketBuilder
             {
                 type = 0x80,
                 code = 0x00,
-                checksum = new byte[] { 0x00, 0x01 },
                 identifier = new byte[] { 0x00, 0x01 },
                 sequence = new byte[] { 0x00, 0x01 },
 
@@ -31,9 +32,27 @@ class PacketBuilder
                 },
             };
 
+            // Setting Checksum
+            switch (pMultiAddrIndex)
+            {
+                case 0:
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7b };
+                    break;
+                case 1:
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7a };
+                    break;
+                case 2:
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7a };
+                    break;
+                case 3:
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x79 };
+                    break;
+            }
+
+            // Building Packet
             byte[] icmpv6LayerBytes = icmpv6Packet.buildLayer();
 
-            IPv6Packet ipv6Packet = new IPv6Packet(pLocalIPv6, IPAddress.Parse(pMulticastScopeAddress))
+            IPv6Packet ipv6Packet = new IPv6Packet(pLocalIPv6, IPAddress.Parse(multiAddr[pMultiAddrIndex]))
             {
                 NextHeader = ProtocolType.IcmpV6,
                 PayloadLength = (ushort)icmpv6LayerBytes.Length,

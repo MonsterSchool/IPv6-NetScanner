@@ -42,6 +42,8 @@ namespace IPv6_NetScanner
             this.Hostname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IPv6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EthernetAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Info = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLoading)).BeginInit();
             this.panFill.SuspendLayout();
@@ -121,7 +123,6 @@ namespace IPv6_NetScanner
             this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLoading.TabIndex = 1;
             this.picLoading.TabStop = false;
-            this.picLoading.Visible = false;
             // 
             // btnScanNet
             // 
@@ -155,7 +156,9 @@ namespace IPv6_NetScanner
             this.dataGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Hostname,
             this.IPv6,
-            this.EthernetAddress});
+            this.EthernetAddress,
+            this.Info,
+            this.Manufacturer});
             this.dataGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGV.Location = new System.Drawing.Point(0, 0);
             this.dataGV.Name = "dataGV";
@@ -172,9 +175,9 @@ namespace IPv6_NetScanner
             // IPv6
             // 
             this.IPv6.Frozen = true;
-            this.IPv6.HeaderText = "IPv6";
+            this.IPv6.HeaderText = "IPv6 Address";
             this.IPv6.Name = "IPv6";
-            this.IPv6.Width = 54;
+            this.IPv6.Width = 95;
             // 
             // EthernetAddress
             // 
@@ -182,6 +185,22 @@ namespace IPv6_NetScanner
             this.EthernetAddress.HeaderText = "Ethernet-Address";
             this.EthernetAddress.Name = "EthernetAddress";
             this.EthernetAddress.Width = 113;
+            // 
+            // Info
+            // 
+            this.Info.Frozen = true;
+            this.Info.HeaderText = "Info";
+            this.Info.Name = "Info";
+            this.Info.ReadOnly = true;
+            this.Info.Width = 50;
+            // 
+            // Manufacturer
+            // 
+            this.Manufacturer.Frozen = true;
+            this.Manufacturer.HeaderText = "Manufacturer";
+            this.Manufacturer.Name = "Manufacturer";
+            this.Manufacturer.ReadOnly = true;
+            this.Manufacturer.Width = 95;
             // 
             // MainForm
             // 
@@ -215,11 +234,13 @@ namespace IPv6_NetScanner
         private System.Windows.Forms.DomainUpDown dUpDoDevice;
         private System.Windows.Forms.Button btnShowHosts;
         public System.Windows.Forms.PictureBox picLoading;
+        public System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.DomainUpDown dUpDoIP;
         private System.Windows.Forms.DataGridViewTextBoxColumn Hostname;
         private System.Windows.Forms.DataGridViewTextBoxColumn IPv6;
         private System.Windows.Forms.DataGridViewTextBoxColumn EthernetAddress;
-        public System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.DomainUpDown dUpDoIP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Info;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Manufacturer;
     }
 }
 

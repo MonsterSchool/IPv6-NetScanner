@@ -3,6 +3,7 @@ using PacketDotNet;
 using SharpPcap;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading;
 
@@ -12,6 +13,7 @@ class Scan
     private PacketBuilder networkPacket = new PacketBuilder();
     private ILiveDevice liveDevice;
     private List<Host> hostList = new List<Host>();
+    private int multiAddrIndex = 0;
 
     /// <summary>
     /// Indicates whether a scan is active
@@ -22,7 +24,7 @@ class Scan
     /// Starts an endless network scan. This can be stopped via the stopScan method.
     /// </summary>
     /// <param name="pLiveDevice">The network device to be used for the scan.</param>
-    public void scanNetwork(MainForm pMainForm, ILiveDevice pLiveDevice, IPAddress pLocalIPv6, string pMulticastAddress)
+    public void scanNetwork(MainForm pMainForm, ILiveDevice pLiveDevice, IPAddress pLocalIPv6)
     {
         mainForm = pMainForm;
         liveDevice = pLiveDevice;
@@ -33,28 +35,34 @@ class Scan
         scanStatus = true;
         liveDevice.StartCapture();
 
-        Thread scanThread = new Thread(()=> threadMethod(pLocalIPv6, pMulticastAddress));
+        Thread scanThread = new Thread(() => threadMethod(pLocalIPv6));
         scanThread.Start();
-    }    
-    
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    private void threadMethod(IPAddress pLocalIPv6, string pMulticastAddress)
+    private void threadMethod(IPAddress pLocalIPv6)
     {
         while (scanStatus)
         {
-            performNetworkscan(pLocalIPv6, pMulticastAddress);
-            Thread.Sleep(5000);
+            if (multiAddrIndex == 4)
+                multiAddrIndex = 0;
+
+            Debug.WriteLine(multiAddrIndex);
+            performNetworkscan(pLocalIPv6, multiAddrIndex);            
+            Thread.Sleep(2000);
+            multiAddrIndex++;
+            
         }
     }
-    
+
     /// <summary>
     /// Builds an ICMPv6 ping request packet and sends it over the specified network gateway.
     /// </summary>
-    private void performNetworkscan(IPAddress pLocalIPv6, string pMulticastAddress)
+    private void performNetworkscan(IPAddress pLocalIPv6, int pMultiAddrIndex)
     {
-        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMulticastAddress);
+        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
         if (packet != null)
         {
             liveDevice.SendPacket(packet);
@@ -64,7 +72,7 @@ class Scan
             mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Error! The network adapter cannot be used!";
         }
     }
-    
+
     /// <summary>
     /// Receives ICMPv6 echo replies and evaluates the IPv6 and MAC address.
     /// If a device is not present in the list, this is recorded.
@@ -81,26 +89,58 @@ class Scan
         {
             if (icmpv6Packet.Type == IcmpV6Type.EchoReply)
             {
-                bool matchFound = false;
-                foreach (Host host in hostList)
-                {
-                    if (host.ipAddress.Equals(ipv6Packet.SourceAddress))
-                    {
-                        mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
-                        matchFound = true;
-                        break;
-                    }
-                }
-
-                if (!matchFound)
-                {
-                    Host tempHost = new Host();
-                    tempHost.physicalAddress = ethernetPacket.SourceHardwareAddress;
-                    tempHost.ipAddress = ipv6Packet.SourceAddress;
-                    hostList.Add(tempHost);
-                    mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": New host discovered!";
-                }
+                checkHost(ethernetPacket, ipv6Packet);
             }
+        }
+    }
+
+    private void checkHost(EthernetPacket pEthernetPacket, IPv6Packet pIPv6Packet)
+    {
+        bool matchFound = false;
+        foreach (Host host in hostList)
+        {
+            if (host.ipAddress.Equals(pIPv6Packet.SourceAddress))
+            {
+                switch (multiAddrIndex)
+                {
+                    case 1:
+                        host.info = "Interface-local Router";
+                        break;
+                    case 3:
+                        host.info = "Link-local Router";
+                        break;  
+                }
+                mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
+                matchFound = true;
+                break;               
+            }
+        }
+
+        if (!matchFound)
+        {
+            Host tempHost = new Host();
+            tempHost.physicalAddress = pEthernetPacket.SourceHardwareAddress;
+            tempHost.ipAddress = pIPv6Packet.SourceAddress;
+
+            switch (multiAddrIndex)
+            {
+                case 0:
+                    tempHost.info = "Interface-local node";
+                    break;
+                case 1:
+                    tempHost.info = "Interface-local Router";
+                    break;
+                case 2:
+                    tempHost.info = "Link-local node";
+                    break;
+                case 3:
+                    tempHost.info = "Link-local Router";
+                    break;
+            }
+            
+            hostList.Add(tempHost);
+            mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": New host discovered!";
+            Debug.WriteLine("Host added with: " + multiAddrIndex);
         }
     }
 
@@ -120,5 +160,5 @@ class Scan
     public List<Host> retrievHosts()
     {
         return hostList;
-    }    
+    }
 }
