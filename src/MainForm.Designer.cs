@@ -60,11 +60,13 @@ namespace IPv6_NetScanner
             this.panTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panTop.Location = new System.Drawing.Point(0, 0);
             this.panTop.Name = "panTop";
-            this.panTop.Size = new System.Drawing.Size(899, 30);
+            this.panTop.Size = new System.Drawing.Size(899, 35);
             this.panTop.TabIndex = 0;
             // 
             // dUpDoIP
             // 
+            this.dUpDoIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dUpDoIP.BackColor = System.Drawing.Color.WhiteSmoke;
             this.dUpDoIP.Location = new System.Drawing.Point(465, 5);
             this.dUpDoIP.Name = "dUpDoIP";
@@ -76,24 +78,22 @@ namespace IPv6_NetScanner
             // 
             // lblInfo
             // 
-            this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfo.BackColor = System.Drawing.Color.WhiteSmoke;
             this.lblInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblInfo.Location = new System.Drawing.Point(655, 5);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(214, 20);
+            this.lblInfo.Size = new System.Drawing.Size(215, 25);
             this.lblInfo.TabIndex = 4;
-            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnShowHosts
             // 
             this.btnShowHosts.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnShowHosts.FlatAppearance.BorderSize = 0;
             this.btnShowHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowHosts.Location = new System.Drawing.Point(115, 5);
             this.btnShowHosts.Name = "btnShowHosts";
-            this.btnShowHosts.Size = new System.Drawing.Size(80, 20);
+            this.btnShowHosts.Size = new System.Drawing.Size(80, 25);
             this.btnShowHosts.TabIndex = 3;
             this.btnShowHosts.Text = "Show Result";
             this.btnShowHosts.UseVisualStyleBackColor = false;
@@ -113,11 +113,12 @@ namespace IPv6_NetScanner
             // picLoading
             // 
             this.picLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picLoading.BackColor = System.Drawing.Color.WhiteSmoke;
             this.picLoading.Image = global::IPv6_NetScanner.Properties.Resources.load;
-            this.picLoading.Location = new System.Drawing.Point(874, 5);
+            this.picLoading.Location = new System.Drawing.Point(870, 5);
             this.picLoading.Name = "picLoading";
-            this.picLoading.Size = new System.Drawing.Size(20, 20);
-            this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLoading.Size = new System.Drawing.Size(25, 25);
+            this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLoading.TabIndex = 1;
             this.picLoading.TabStop = false;
             this.picLoading.Visible = false;
@@ -125,11 +126,10 @@ namespace IPv6_NetScanner
             // btnScanNet
             // 
             this.btnScanNet.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnScanNet.FlatAppearance.BorderSize = 0;
             this.btnScanNet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScanNet.Location = new System.Drawing.Point(5, 5);
             this.btnScanNet.Name = "btnScanNet";
-            this.btnScanNet.Size = new System.Drawing.Size(105, 20);
+            this.btnScanNet.Size = new System.Drawing.Size(105, 25);
             this.btnScanNet.TabIndex = 0;
             this.btnScanNet.Text = "Start Networkscan";
             this.btnScanNet.UseVisualStyleBackColor = false;
@@ -139,9 +139,9 @@ namespace IPv6_NetScanner
             // 
             this.panFill.Controls.Add(this.dataGV);
             this.panFill.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panFill.Location = new System.Drawing.Point(0, 30);
+            this.panFill.Location = new System.Drawing.Point(0, 35);
             this.panFill.Name = "panFill";
-            this.panFill.Size = new System.Drawing.Size(899, 420);
+            this.panFill.Size = new System.Drawing.Size(899, 415);
             this.panFill.TabIndex = 1;
             // 
             // dataGV
@@ -159,7 +159,7 @@ namespace IPv6_NetScanner
             this.dataGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGV.Location = new System.Drawing.Point(0, 0);
             this.dataGV.Name = "dataGV";
-            this.dataGV.Size = new System.Drawing.Size(899, 420);
+            this.dataGV.Size = new System.Drawing.Size(899, 415);
             this.dataGV.TabIndex = 0;
             // 
             // Hostname
@@ -195,6 +195,7 @@ namespace IPv6_NetScanner
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPv6-NetScanner";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panTop.ResumeLayout(false);

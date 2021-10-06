@@ -27,17 +27,19 @@ namespace IPv6_NetScanner
             CheckForIllegalCrossThreadCalls = false;
             deviceList = CaptureDeviceList.Instance;
             localIPv6AddrCollection = getLocalIPs();
+
+            picLoading.Image = null;
         }
 
         private void btnScanNet_Click(object sender, EventArgs e)
         {
             if (liveDevice != null & localIPv6 != null)
             {
-                if (!picLoading.Visible)
+                if (picLoading.Image == null)
                 {
                     btnScanNet.Text = "Stop Networkscan";
                     lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
-                    picLoading.Visible = true;
+                    picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
                     scan.scanNetwork(this, liveDevice, localIPv6, multicastAddress);
 
                 }
@@ -45,7 +47,7 @@ namespace IPv6_NetScanner
                 {
                     btnScanNet.Text = "Start Networkscan";
                     lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
-                    picLoading.Visible = false;
+                    picLoading.Image = null;
                     scan.stopScan();
                 }
             }
