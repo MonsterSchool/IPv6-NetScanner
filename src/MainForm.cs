@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -26,12 +25,14 @@ namespace IPv6_NetScanner
 
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
             CheckForIllegalCrossThreadCalls = false;
+
+            extractResources();
+
+            // Lists
             deviceList = CaptureDeviceList.Instance;
             localIPv6AddrCollection = getLocalIPs();
-
-            picLoading.Image = null;
         }
 
         private void btnScanNet_Click(object sender, EventArgs e)
@@ -133,11 +134,21 @@ namespace IPv6_NetScanner
         }
 
 
+        private void extractResources()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt";
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, IPv6_NetScanner.Properties.Resources.mac_vendor);
+            }            
+        }
+
+
         private string getManufacturer(string pPhysicalAddress)
         {
             string manufacturer = "Not Found";
             const Int32 BufferSize = 128;
-            using (var fileStream = File.OpenRead(@"mac-vendor.txt"))
+            using (var fileStream = File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt"))
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
             {
                 String line;

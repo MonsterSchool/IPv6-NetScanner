@@ -14216,6 +14216,7 @@
 20F3A3	HUAWEI TECHNOLOGIES CO.,LTD
 20F41B	Shenzhen Bilian electronic CO.,LTD
 20F452	Shanghai IUV Software Development Co. Ltd
+20F478	Xiaomi Communications Co Ltd
 20F510	Codex Digital Limited
 20F543	Hui Zhou Gaoshengda Technology Co.,LTD
 20F85E	Delta Electronics
@@ -22100,6 +22101,7 @@ E4FAFD	Intel Corporate
 E4FB8F	MOBIWIRE MOBILES (NINGBO) CO.,LTD
 E4FED9	EDMI Europe Ltd
 E4FFDD	ELECTRON INDIA
+E60D7A	OnePlus Technology (Shenzhen) Co., Ltd 
 E80036	Befs co,. ltd
 E8039A	Samsung Electronics Co.,Ltd
 E8040B	Apple, Inc.

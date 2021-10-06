@@ -116,7 +116,6 @@ namespace IPv6_NetScanner
             // 
             this.picLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picLoading.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.picLoading.Image = global::IPv6_NetScanner.Properties.Resources.load;
             this.picLoading.Location = new System.Drawing.Point(870, 5);
             this.picLoading.Name = "picLoading";
             this.picLoading.Size = new System.Drawing.Size(25, 25);

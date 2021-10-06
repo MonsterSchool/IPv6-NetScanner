@@ -32,22 +32,8 @@ class PacketBuilder
                 },
             };
 
-            // Setting Checksum
-            switch (pMultiAddrIndex)
-            {
-                case 0:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7b };
-                    break;
-                case 1:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7a };
-                    break;
-                case 2:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x7a };
-                    break;
-                case 3:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x79 };
-                    break;
-            }
+            // Calculating Checksum
+            
 
             // Building Packet
             byte[] icmpv6LayerBytes = icmpv6Packet.buildLayer();

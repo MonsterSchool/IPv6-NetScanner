@@ -108,7 +108,7 @@ class Scan
                         break;
                     case 3:
                         host.info = "Link-local Router";
-                        break;  
+                        break;
                 }
                 mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
                 matchFound = true;
