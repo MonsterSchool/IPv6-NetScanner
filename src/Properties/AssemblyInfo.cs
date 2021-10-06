@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("IPv6-Scanner")]
+[assembly: AssemblyTitle("IPv6-NetScanner")]
 [assembly: AssemblyDescription("A simple, open source IPv6 Networkscanner")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Monster School")]
-[assembly: AssemblyProduct("IPv6-Scanner")]
+[assembly: AssemblyProduct("IPv6-NetScanner")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("The Monster School")]
 [assembly: AssemblyCulture("")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // indem Sie "*" wie unten gezeigt eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.9.2.1")]
-[assembly: AssemblyFileVersion("0.9.2.1")]
+[assembly: AssemblyVersion("1.0.2.1")]
+[assembly: AssemblyFileVersion("1.0.2.1")]

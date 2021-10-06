@@ -1,0 +1,16 @@
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\IPv6-Scanner.exe.config
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\IPv6-Scanner.exe
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Buffers.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Memory.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\bin\Debug\System.Text.Encoding.CodePages.xml
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6_Scanner.MainForm.resources
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6_Scanner.Properties.Resources.resources
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.csproj.Fody.CopyLocal.cache
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.csproj.CopyComplete
+C:\Users\Administrator\Documents\IPv6-Scanner\src\obj\Debug\IPv6-Scanner.exe

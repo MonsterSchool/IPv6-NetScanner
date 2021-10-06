@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 
 class PacketBuilder
 {
-    public Packet buildPacket(ILiveDevice pLiveDevice, string pMulticastScopeAddress)
+    public Packet buildPacket(ILiveDevice pLiveDevice, IPAddress pLocalIPv6, string pMulticastScopeAddress)
     {
         if (pLiveDevice.MacAddress != null)
         {
@@ -33,7 +33,7 @@ class PacketBuilder
 
             byte[] icmpv6LayerBytes = icmpv6Packet.buildLayer();
 
-            IPv6Packet ipv6Packet = new IPv6Packet(getLocalIp(), IPAddress.Parse(pMulticastScopeAddress))
+            IPv6Packet ipv6Packet = new IPv6Packet(pLocalIPv6, IPAddress.Parse(pMulticastScopeAddress))
             {
                 NextHeader = ProtocolType.IcmpV6,
                 PayloadLength = (ushort)icmpv6LayerBytes.Length,
@@ -44,13 +44,5 @@ class PacketBuilder
             return ethernetPacket;
         }
         return null;
-    }
-
-    private IPAddress getLocalIp()
-    {
-        string strHostName = Dns.GetHostName(); ;
-        IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
-        IPAddress[] addr = ipEntry.AddressList;
-        return IPAddress.Parse(addr[0].ToString().Split('%')[0]);
     }
 }

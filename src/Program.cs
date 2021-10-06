@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace IPv6_Scanner
+namespace IPv6_NetScanner
 {
     static class Program
     {

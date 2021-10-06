@@ -1,8 +1,9 @@
-﻿using IPv6_Scanner;
+﻿using IPv6_NetScanner;
 using PacketDotNet;
 using SharpPcap;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 
 class Scan
@@ -21,7 +22,7 @@ class Scan
     /// Starts an endless network scan. This can be stopped via the stopScan method.
     /// </summary>
     /// <param name="pLiveDevice">The network device to be used for the scan.</param>
-    public void scanNetwork(MainForm pMainForm, ILiveDevice pLiveDevice, string pMulticastAddress)
+    public void scanNetwork(MainForm pMainForm, ILiveDevice pLiveDevice, IPAddress pLocalIPv6, string pMulticastAddress)
     {
         mainForm = pMainForm;
         liveDevice = pLiveDevice;
@@ -32,18 +33,18 @@ class Scan
         scanStatus = true;
         liveDevice.StartCapture();
 
-        Thread scanThread = new Thread(()=> threadMethod(pMulticastAddress));
+        Thread scanThread = new Thread(()=> threadMethod(pLocalIPv6, pMulticastAddress));
         scanThread.Start();
     }    
     
     /// <summary>
     /// 
     /// </summary>
-    private void threadMethod(string pMulticastAddress)
+    private void threadMethod(IPAddress pLocalIPv6, string pMulticastAddress)
     {
         while (scanStatus)
         {
-            performNetworkscan(pMulticastAddress);
+            performNetworkscan(pLocalIPv6, pMulticastAddress);
             Thread.Sleep(5000);
         }
     }
@@ -51,9 +52,9 @@ class Scan
     /// <summary>
     /// Builds an ICMPv6 ping request packet and sends it over the specified network gateway.
     /// </summary>
-    private void performNetworkscan(string pMulticastAddress)
+    private void performNetworkscan(IPAddress pLocalIPv6, string pMulticastAddress)
     {
-        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pMulticastAddress);
+        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMulticastAddress);
         if (packet != null)
         {
             liveDevice.SendPacket(packet);
