@@ -14,7 +14,7 @@ You can download the already compiled IPv6 scanner [here](https://github.com/Mon
 
 ## Changelog
 - V 0.9.2.1 - Project start. Implemented basic IP & MAC-Discovery.
-- V 1.0.2.1 - 
+- V 1.0.2.1 - (...)
 
 ## Copyright
 The contents and works in this software created by the software operators are subject to German copyright law. The reproduction, editing, distribution and any kind of use outside the limits of copyright law require the written consent of the respective author or creator. Downloads and copies of this software are only permitted for private, non-commercial use.
