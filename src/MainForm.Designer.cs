@@ -209,6 +209,7 @@ namespace IPv6_NetScanner
             this.ClientSize = new System.Drawing.Size(899, 450);
             this.Controls.Add(this.panFill);
             this.Controls.Add(this.panTop);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

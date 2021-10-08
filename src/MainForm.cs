@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace IPv6_NetScanner
@@ -116,15 +117,24 @@ namespace IPv6_NetScanner
 
         private void btnShowHosts_Click(object sender, EventArgs e)
         {
+            lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
+
             while (dataGV.Rows.Count > 0)
             {
                 dataGV.Rows.Remove(dataGV.Rows[0]);
             }
 
+            Thread bgThread = new Thread(displayHostList);
+            bgThread.Start();
+        }
+
+        private void displayHostList()
+        {
             foreach (Host host in scan.retrievHosts())
-            {                
+            {
                 string[] row = new string[] { "-", host.ipAddress.ToString(), host.physicalAddress.ToString(), host.info, getManufacturer(host.physicalAddress.ToString()) };
                 dataGV.Rows.Add(row);
+                Thread.Sleep(50);
             }
         }
 

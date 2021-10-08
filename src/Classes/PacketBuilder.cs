@@ -32,9 +32,23 @@ class PacketBuilder
                 },
             };
 
-            // Calculating Checksum
+            // Setting Checksum
+            switch (pMultiAddrIndex)
+            {
+                case 0:
+                    icmpv6Packet.checksum = new byte[] { 0xed, 0x31 };
+                    break;
+                case 1:
+                    icmpv6Packet.checksum = new byte[] { 0xed, 0x30 };
+                    break;
+                case 2:
+                    icmpv6Packet.checksum = new byte[] { 0xed, 0x30 };
+                    break;
+                case 3:
+                    icmpv6Packet.checksum = new byte[] { 0xed, 0x2f };
+                    break;
+            };            
             
-
             // Building Packet
             byte[] icmpv6LayerBytes = icmpv6Packet.buildLayer();
 
@@ -49,5 +63,5 @@ class PacketBuilder
             return ethernetPacket;
         }
         return null;
-    }
+    }    
 }

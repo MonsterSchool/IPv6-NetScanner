@@ -3,7 +3,6 @@ using PacketDotNet;
 using SharpPcap;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Threading;
 
@@ -49,11 +48,9 @@ class Scan
             if (multiAddrIndex == 4)
                 multiAddrIndex = 0;
 
-            Debug.WriteLine(multiAddrIndex);
             performNetworkscan(pLocalIPv6, multiAddrIndex);            
             Thread.Sleep(2000);
-            multiAddrIndex++;
-            
+            multiAddrIndex++;            
         }
     }
 
@@ -96,7 +93,7 @@ class Scan
 
     private void checkHost(EthernetPacket pEthernetPacket, IPv6Packet pIPv6Packet)
     {
-        bool matchFound = false;
+        bool _matchFound = false;
         foreach (Host host in hostList)
         {
             if (host.ipAddress.Equals(pIPv6Packet.SourceAddress))
@@ -111,12 +108,12 @@ class Scan
                         break;
                 }
                 mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
-                matchFound = true;
+                _matchFound = true;
                 break;               
             }
         }
 
-        if (!matchFound)
+        if (!_matchFound)
         {
             Host tempHost = new Host();
             tempHost.physicalAddress = pEthernetPacket.SourceHardwareAddress;
@@ -140,7 +137,6 @@ class Scan
             
             hostList.Add(tempHost);
             mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": New host discovered!";
-            Debug.WriteLine("Host added with: " + multiAddrIndex);
         }
     }
 
