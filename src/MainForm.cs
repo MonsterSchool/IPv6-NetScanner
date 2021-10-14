@@ -26,7 +26,7 @@ namespace IPv6_NetScanner
 
         public MainForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
 
             extractResources();
@@ -150,7 +150,7 @@ namespace IPv6_NetScanner
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, IPv6_NetScanner.Properties.Resources.mac_vendor);
-            }            
+            }
         }
 
 
@@ -168,8 +168,8 @@ namespace IPv6_NetScanner
                     {
                         manufacturer = line.Remove(0, 6);
                         break;
-                    }                        
-                }                    
+                    }
+                }
             }
 
             return manufacturer;

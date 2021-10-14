@@ -1,8 +1,9 @@
-﻿using NetDotNet.Layer_2;
-using PacketDotNet;
+﻿using PacketDotNet;
+using PacketDotNet.Utils;
 using SharpPcap;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Text;
 
 class PacketBuilder
 {
@@ -14,62 +15,28 @@ class PacketBuilder
         {
             EthernetPacket ethernetPacket = new EthernetPacket(pLiveDevice.MacAddress, PhysicalAddress.Parse("33-33-00-00-00-01"), EthernetType.IPv6);
 
-            ICMPv6Layer icmpv6Packet = new ICMPv6Layer()
+            IcmpV6Packet icmpv6Packet = new IcmpV6Packet(new ByteArraySegment(new byte[40]))
             {
-                type = 0x80,
-                code = 0x00,
-                identifier = new byte[] { 0x00, 0x01 },
-                sequence = new byte[] { 0x00, 0x01 },
-
-                icmpv6Option = new byte[]
-                {
-                  0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
-                  0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c,
-                  0x6d, 0x6e, 0x6f, 0x70, 0x71, 0x72,
-                  0x73, 0x74, 0x75, 0x76, 0x77, 0x61,
-                  0x62, 0x63, 0x64, 0x65, 0x66, 0x67,
-                  0x68, 0x69
-                },
+                Type = IcmpV6Type.EchoRequest,
+                PayloadData = Encoding.ASCII.GetBytes("abcdefghijklmnopqrstuvwabcdefghi")
             };
 
-            // Setting Checksum
-            switch (pMultiAddrIndex)
-            {
-                case 0:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5d };
-                    break;
-                case 1:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5c };
-                    break;
-                case 2:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5c };
-                    break;
-                case 3:
-                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5b };
-                    break;
-            };            
-            
-            // Building Packet
-            byte[] icmpv6LayerBytes = icmpv6Packet.buildLayer();
-
-            IPv6Packet ipv6Packet = new IPv6Packet(pLocalIPv6, IPAddress.Parse(multiAddr[pMultiAddrIndex]))
-            {
-                NextHeader = ProtocolType.IcmpV6,
-                PayloadLength = (ushort)icmpv6LayerBytes.Length,
-                PayloadData = icmpv6LayerBytes,
-            };
+            IPv6Packet ipv6Packet = new IPv6Packet(pLocalIPv6, IPAddress.Parse(multiAddr[pMultiAddrIndex]));
 
             ethernetPacket.PayloadPacket = ipv6Packet;
+            ipv6Packet.PayloadPacket = icmpv6Packet;
+
             return ethernetPacket;
         }
         return null;
-    }    
-    
-    private ushort ComputeChecksum(byte[ ] payLoad)
+    }
+
+    /*
+    private ushort ComputeChecksum(byte[] payLoad)
     {
         uint xsum = 0;
         ushort shortval = 0, hiword = 0, loword = 0;
- 
+
         // Sum up the 16-bits
         for (int i = 0; i < payLoad.Length / 2; i++)
         {
@@ -84,11 +51,12 @@ class PacketBuilder
         {
             xsum += (uint)payLoad[payLoad.Length - 1];
         }
- 
+
         xsum = ((xsum >> 16) + (xsum & 0xFFFF));
         xsum = (xsum + (xsum >> 16));
         shortval = (ushort)(~xsum);
- 
+
         return shortval;
     }
+    */
 }

@@ -48,9 +48,9 @@ class Scan
             if (multiAddrIndex == 4)
                 multiAddrIndex = 0;
 
-            performNetworkscan(pLocalIPv6, multiAddrIndex);            
+            performNetworkscan(pLocalIPv6, multiAddrIndex);
             Thread.Sleep(2000);
-            multiAddrIndex++;            
+            multiAddrIndex++;
         }
     }
 
@@ -109,7 +109,7 @@ class Scan
                 }
                 mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
                 _matchFound = true;
-                break;               
+                break;
             }
         }
 
@@ -134,7 +134,7 @@ class Scan
                     tempHost.info = "Link-local Router";
                     break;
             }
-            
+
             hostList.Add(tempHost);
             mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": New host discovered!";
         }
