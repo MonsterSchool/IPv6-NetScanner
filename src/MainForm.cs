@@ -132,7 +132,7 @@ namespace IPv6_NetScanner
         {
             foreach (Host host in scan.retrievHosts())
             {
-                string[] row = new string[] { "-", host.ipAddress.ToString(), host.physicalAddress.ToString(), host.info, getManufacturer(host.physicalAddress.ToString()) };
+                string[] row = new string[] { host.ipAddress.ToString(), host.physicalAddress.ToString(), host.info, getManufacturer(host.physicalAddress.ToString()) };
                 dataGV.Rows.Add(row);
                 Thread.Sleep(50);
             }

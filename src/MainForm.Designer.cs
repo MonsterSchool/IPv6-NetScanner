@@ -29,6 +29,11 @@ namespace IPv6_NetScanner
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.panTop = new System.Windows.Forms.Panel();
             this.dUpDoIP = new System.Windows.Forms.DomainUpDown();
@@ -39,7 +44,6 @@ namespace IPv6_NetScanner
             this.btnScanNet = new System.Windows.Forms.Button();
             this.panFill = new System.Windows.Forms.Panel();
             this.dataGV = new System.Windows.Forms.DataGridView();
-            this.Hostname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IPv6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EthernetAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Info = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -148,58 +152,69 @@ namespace IPv6_NetScanner
             // 
             this.dataGV.AllowUserToAddRows = false;
             this.dataGV.AllowUserToDeleteRows = false;
-            this.dataGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGV.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGV.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Hostname,
             this.IPv6,
             this.EthernetAddress,
             this.Info,
             this.Manufacturer});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGV.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGV.Location = new System.Drawing.Point(0, 0);
             this.dataGV.Name = "dataGV";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGV.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGV.Size = new System.Drawing.Size(899, 415);
             this.dataGV.TabIndex = 0;
             // 
-            // Hostname
-            // 
-            this.Hostname.Frozen = true;
-            this.Hostname.HeaderText = "Hostname";
-            this.Hostname.Name = "Hostname";
-            this.Hostname.Width = 80;
-            // 
             // IPv6
             // 
-            this.IPv6.Frozen = true;
             this.IPv6.HeaderText = "IPv6 Address";
             this.IPv6.Name = "IPv6";
-            this.IPv6.Width = 95;
             // 
             // EthernetAddress
             // 
-            this.EthernetAddress.Frozen = true;
             this.EthernetAddress.HeaderText = "Ethernet-Address";
             this.EthernetAddress.Name = "EthernetAddress";
-            this.EthernetAddress.Width = 113;
             // 
             // Info
             // 
-            this.Info.Frozen = true;
             this.Info.HeaderText = "Info";
             this.Info.Name = "Info";
             this.Info.ReadOnly = true;
-            this.Info.Width = 50;
             // 
             // Manufacturer
             // 
-            this.Manufacturer.Frozen = true;
             this.Manufacturer.HeaderText = "Manufacturer";
             this.Manufacturer.Name = "Manufacturer";
             this.Manufacturer.ReadOnly = true;
-            this.Manufacturer.Width = 95;
             // 
             // MainForm
             // 
@@ -236,7 +251,6 @@ namespace IPv6_NetScanner
         public System.Windows.Forms.PictureBox picLoading;
         public System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.DomainUpDown dUpDoIP;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Hostname;
         private System.Windows.Forms.DataGridViewTextBoxColumn IPv6;
         private System.Windows.Forms.DataGridViewTextBoxColumn EthernetAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Info;
