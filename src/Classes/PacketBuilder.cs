@@ -36,16 +36,16 @@ class PacketBuilder
             switch (pMultiAddrIndex)
             {
                 case 0:
-                    icmpv6Packet.checksum = new byte[] { 0xed, 0x31 };
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5d };
                     break;
                 case 1:
-                    icmpv6Packet.checksum = new byte[] { 0xed, 0x30 };
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5c };
                     break;
                 case 2:
-                    icmpv6Packet.checksum = new byte[] { 0xed, 0x30 };
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5c };
                     break;
                 case 3:
-                    icmpv6Packet.checksum = new byte[] { 0xed, 0x2f };
+                    icmpv6Packet.checksum = new byte[] { 0x53, 0x5b };
                     break;
             };            
             
