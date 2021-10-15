@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -132,7 +133,8 @@ namespace IPv6_NetScanner
         {
             foreach (Host host in scan.retrievHosts())
             {
-                string[] row = new string[] { host.ipAddress.ToString(), host.physicalAddress.ToString(), host.info, getManufacturer(host.physicalAddress.ToString()) };
+
+                string[] row = new string[] { host.ipAddress.ToString(), string.Join("-", host.physicalAddress.GetAddressBytes().Select(b => b.ToString("X2"))), host.info, getManufacturer(host.physicalAddress.ToString()) };
                 dataGV.Rows.Add(row);
                 Thread.Sleep(50);
             }
@@ -188,6 +190,12 @@ namespace IPv6_NetScanner
             }
 
             return returnList;
+        }
+
+        private void dataGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Clipboard.SetText(dataGV.Rows[e.RowIndex].Cells[1].Value.ToString());
+            lblInfo.Text = "Cell content copied to clipboard!";
         }
     }
 }

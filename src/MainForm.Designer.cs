@@ -193,6 +193,7 @@ namespace IPv6_NetScanner
             this.dataGV.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGV.Size = new System.Drawing.Size(899, 415);
             this.dataGV.TabIndex = 0;
+            this.dataGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGV_CellDoubleClick);
             // 
             // IPv6
             // 
