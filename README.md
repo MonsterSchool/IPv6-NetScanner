@@ -14,11 +14,12 @@ You can download the already compiled IPv6 scanner [here](https://github.com/Mon
 
 ## The Networkscan
 NetScanner sends four ICMPv6 Echo-Request messages over the specified network card. The following scopes are used:
+```
 - FF01::1 (Interface-local all Nodes)
 - FF01::2 (Interface-local all Routers)
 - FF02::1 (Link-local all Nodes)
 - FF02::2 (Link-local all Routers)
-
+```
 The entire scanning process takes a maximum of 8 seconds. Depending on the response, the different interfaces are assigned to the scopes.
 
 ## Changelog
