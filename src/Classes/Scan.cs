@@ -46,11 +46,18 @@ class Scan
         while (scanStatus)
         {
             if (multiAddrIndex == 4)
+            {
                 multiAddrIndex = 0;
+                stopScan();
+                break;
+            }
+
 
             performNetworkscan(pLocalIPv6, multiAddrIndex);
             Thread.Sleep(2000);
             multiAddrIndex++;
+
+            mainForm.Text = "IPv6-NetScanner " + multiAddrIndex * 25 + "%";
         }
     }
 
@@ -147,6 +154,10 @@ class Scan
     {
         scanStatus = false;
         liveDevice.StopCapture();
+
+        mainForm.btnScanNet_Stop();
+        mainForm.refreshHostList();
+        mainForm.Text = "IPv6-NetScanner";
     }
 
     /// <summary>

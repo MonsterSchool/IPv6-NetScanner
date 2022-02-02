@@ -41,22 +41,31 @@ namespace IPv6_NetScanner
         {
             if (liveDevice != null & localIPv6 != null)
             {
-                if (picLoading.Image == null)
+                if (picLoading.Image == null & scan.scanStatus == false)
                 {
-                    btnScanNet.Text = "Stop Networkscan";
-                    lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
-                    picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
-                    scan.scanNetwork(this, liveDevice, localIPv6);
-
+                    btnScanNet_Start();
                 }
                 else
                 {
-                    btnScanNet.Text = "Start Networkscan";
-                    lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
-                    picLoading.Image = null;
-                    scan.stopScan();
+                    btnScanNet_Stop();
                 }
             }
+        }
+
+        private void btnScanNet_Start()
+        {
+            btnScanNet.Text = "Stop Networkscan";
+            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
+            picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
+            scan.scanNetwork(this, liveDevice, localIPv6);
+        }
+
+        public void btnScanNet_Stop()
+        {
+            btnScanNet.Text = "Start Networkscan";
+            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
+            picLoading.Image = null;
+            // scan.stopScan();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -118,6 +127,17 @@ namespace IPv6_NetScanner
 
         private void btnShowHosts_Click(object sender, EventArgs e)
         {
+            refreshHostList();
+        }
+
+        public void refreshHostList()
+        {
+            Thread bgThread = new Thread(displayHostList);
+            bgThread.Start();
+        }
+
+        private void displayHostList()
+        {
             lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
 
             while (dataGV.Rows.Count > 0)
@@ -125,15 +145,8 @@ namespace IPv6_NetScanner
                 dataGV.Rows.Remove(dataGV.Rows[0]);
             }
 
-            Thread bgThread = new Thread(displayHostList);
-            bgThread.Start();
-        }
-
-        private void displayHostList()
-        {
             foreach (Host host in scan.retrievHosts())
             {
-
                 string[] row = new string[] { host.ipAddress.ToString(), string.Join("-", host.physicalAddress.GetAddressBytes().Select(b => b.ToString("X2"))), host.info, getManufacturer(host.physicalAddress.ToString()) };
                 dataGV.Rows.Add(row);
                 Thread.Sleep(50);

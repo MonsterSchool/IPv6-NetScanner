@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "f1085c7c-c5ee-442d-9778-7cf898f8ca52": {
+      "ProjectGuid": "f1085c7c-c5ee-442d-9778-7cf898f8ca52",
+      "DisplayName": "IPv6-NetScanner",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

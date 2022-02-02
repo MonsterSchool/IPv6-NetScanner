@@ -19,7 +19,7 @@ namespace IPv6_NetScanner.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -92,7 +92,7 @@ namespace IPv6_NetScanner.Properties {
         ///000012	INFORMATION TECHNOLOGY LIMITED
         ///000013	Camex
         ///000014	Netronix
-        ///000015	Datapoint Corporat [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        ///0000 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
         internal static string mac_vendor {
             get {
