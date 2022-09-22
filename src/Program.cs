@@ -18,7 +18,7 @@ namespace IPv6_NetScanner
             checkNpcap();
 
             // Check Version
-            checkVersion();
+            // checkVersion();
 
             // Start Application
             Application.EnableVisualStyles();
@@ -48,11 +48,11 @@ namespace IPv6_NetScanner
                     int webVersion = Convert.ToInt32(webClient.DownloadString("http://software.calysoft.net/software/netscan/version"));
 
                     System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                    System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+                    FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                     int fileVersion = Convert.ToInt32(fvi.FileVersion.Replace(".", ""));
 
-                    Debug.WriteLine(webVersion);
-                    Debug.WriteLine(fileVersion);
+                    Debug.WriteLine("IPv6-NetScanner Web-version: " + webVersion);
+                    Debug.WriteLine("IPv6-NetScanner File-version: " + fileVersion);
 
 
                     if (webVersion > fileVersion)
@@ -64,7 +64,12 @@ namespace IPv6_NetScanner
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                DialogResult messageBox = MessageBox.Show("The latest IPv6 NetScanner version could not be retrieved from our server. Do you still want to continue with this version?", "An unexpected error occurred!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (messageBox == DialogResult.No)
+                    Environment.Exit(0);
+            }
         }
     }
 }

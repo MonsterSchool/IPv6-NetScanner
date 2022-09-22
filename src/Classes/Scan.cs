@@ -57,7 +57,7 @@ class Scan
             Thread.Sleep(2000);
             multiAddrIndex++;
 
-            mainForm.Text = "IPv6-NetScanner " + multiAddrIndex * 25 + "%";
+            mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan-progress: " + multiAddrIndex * 25 + "%";
         }
     }
 
