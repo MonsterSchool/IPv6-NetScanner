@@ -8,7 +8,7 @@ A very helpful article about IPv6 address scanning can be found here: [Sanning I
 
 ## Download IPv6 Network Scanner
 **Make sure you have [.NET 4.8.0](https://dotnet.microsoft.com/download/dotnet-framework) and [Npcap](https://nmap.org/download.html) installed!**<br>
-You can download the already compiled IPv6 scanner [here](https://github.com/MonsterSchool/IPv6-NetScanner/releases/download/v.0.9.2.2/IPv6-NetScanner.exe) (releases). 
+You can download the already compiled IPv6-Scanner (latest working) [here](https://github.com/MonsterSchool/IPv6-NetScanner/releases/download/v.0.9.2.2/IPv6-NetScanner.exe) (releases). 
 
 ## Screenshot
 <img src="img/01.JPG">
