@@ -7,7 +7,7 @@ using System.Text;
 
 class PacketBuilder
 {
-    private string[] multiAddr = { "FF01::1", "FF01::2", "FF02::1", "FF02::2" };
+    private string[] multiAddr = {"FF02::1", "FF02::2" };
 
     public Packet buildPacket(ILiveDevice pLiveDevice, IPAddress pLocalIPv6, int pMultiAddrIndex)
     {

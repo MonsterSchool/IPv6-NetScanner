@@ -45,7 +45,7 @@ class Scan
     {
         while (scanStatus)
         {
-            if (multiAddrIndex == 4)
+            if (multiAddrIndex == 2)
             {
                 multiAddrIndex = 0;
                 stopScan();
@@ -54,10 +54,10 @@ class Scan
 
 
             performNetworkscan(pLocalIPv6, multiAddrIndex);
-            Thread.Sleep(2000);
+            Thread.Sleep(4000);
             multiAddrIndex++;
 
-            mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan-progress: " + multiAddrIndex * 25 + "%";
+            mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan-progress: " + multiAddrIndex * 50 + "%";
         }
     }
 
@@ -68,7 +68,7 @@ class Scan
     {
         try
         {
-            PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
+            Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
             if (packet != null)
             {
                 liveDevice.SendPacket(packet);
@@ -88,10 +88,10 @@ class Scan
     private void device_OnPacketArrival(object sender, PacketCapture e)
     {
         var rawPacket = e.GetPacket();
-        var packet = PacketDotNet.Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
-        EthernetPacket ethernetPacket = packet.Extract<PacketDotNet.EthernetPacket>();
-        IPv6Packet ipv6Packet = packet.Extract<PacketDotNet.IPv6Packet>();
-        IcmpV6Packet icmpv6Packet = packet.Extract<PacketDotNet.IcmpV6Packet>();
+        var packet = Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
+        EthernetPacket ethernetPacket = packet.Extract<EthernetPacket>();
+        IPv6Packet ipv6Packet = packet.Extract<IPv6Packet>();
+        IcmpV6Packet icmpv6Packet = packet.Extract<IcmpV6Packet>();
 
         if (ethernetPacket != null && ipv6Packet != null && icmpv6Packet != null)
         {
@@ -111,13 +111,14 @@ class Scan
             {
                 switch (multiAddrIndex)
                 {
-                    case 1:
-                        host.info = "Interface-local Router";
+                    case 0:
+                        host.info = "Link-local node";
                         break;
-                    case 3:
+                    case 1:
                         host.info = "Link-local Router";
                         break;
                 }
+
                 mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Already identified host detected!";
                 _matchFound = true;
                 break;
@@ -133,15 +134,9 @@ class Scan
             switch (multiAddrIndex)
             {
                 case 0:
-                    tempHost.info = "Interface-local node";
-                    break;
-                case 1:
-                    tempHost.info = "Interface-local Router";
-                    break;
-                case 2:
                     tempHost.info = "Link-local node";
                     break;
-                case 3:
+                case 1:
                     tempHost.info = "Link-local Router";
                     break;
             }
