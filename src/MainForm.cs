@@ -1,13 +1,9 @@
 ﻿using SharpPcap;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace IPv6_NetScanner
@@ -25,8 +21,10 @@ namespace IPv6_NetScanner
         private IPAddress localIPv6;
         private static List<IPAddress> localIPv6AddrCollection;
 
-
-        public MainForm()
+        /// <summary>
+        /// Following: Form-Methods
+        /// </summary>
+        private MainForm()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -36,39 +34,6 @@ namespace IPv6_NetScanner
             // Lists
             deviceList = CaptureDeviceList.Instance;
             localIPv6AddrCollection = getLocalIPs();
-        }
-
-        private void btnScanNet_Click(object sender, EventArgs e)
-        {
-            if (liveDevice != null & localIPv6 != null)
-            {
-                if (picLoading.Image == null & scan.scanStatus == false)
-                {
-                    btnScanNet_Start();
-                }
-                else
-                {
-                    btnScanNet_Stop();
-                }
-            }
-        }
-
-        private void btnScanNet_Start()
-        {
-            btnScanNet.Text = "Stop Scan";
-            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
-            picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
-
-            Debug.WriteLine("Local IPv6: " + localIPv6.ToString());
-            scan.scanNetwork(this, liveDevice, localIPv6);
-        }
-
-        public void btnScanNet_Stop()
-        {
-            btnScanNet.Text = "Start Scan";
-            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
-            picLoading.Image = null;
-            // scan.stopScan();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -95,6 +60,36 @@ namespace IPv6_NetScanner
             }
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void btnScanNet_Click(object sender, EventArgs e)
+        {
+            if (liveDevice != null & localIPv6 != null)
+            {
+                if (scan.scanStatus == false & picLoading.Image == null)
+                {
+                    scanNet_Start();
+                }
+                else
+                {
+                    scanNet_Stop();
+                }
+            }
+        }
+
+        private void btnShowHosts_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
+
+            }
+            catch (Exception) { }
+        }
+
         private void dUpDoDevice_SelectedItemChanged(object sender, EventArgs e)
         {
             if (liveDevice != null)
@@ -116,7 +111,6 @@ namespace IPv6_NetScanner
             }
         }
 
-
         private void dUpDoIP_SelectedItemChanged(object sender, EventArgs e)
         {
             foreach (IPAddress addr in localIPv6AddrCollection)
@@ -128,42 +122,38 @@ namespace IPv6_NetScanner
             }
         }
 
-        public void btnShowHosts_Click(object sender, EventArgs e)
+        private void dataGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
-
-                while (dataGV.Rows.Count > 0)
-                {
-                    dataGV.Rows.Remove(dataGV.Rows[0]);
-                }
-
-                foreach (Host host in scan.retrievHosts())
-                {
-                    string[] row = new string[] { host.ipAddress.ToString(), string.Join("-", host.physicalAddress.GetAddressBytes().Select(b => b.ToString("X2"))), host.info, getManufacturer(host.physicalAddress.ToString()) };
-                    dataGV.Rows.Add(row);
-                    Thread.Sleep(50);
-                }
-            }
-            catch (Exception) { }
+            Clipboard.SetText(dataGV.Rows[e.RowIndex].Cells[1].Value.ToString());
+            lblInfo.Text = "Cell content copied to clipboard!";
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// Following: MISC-Methods
+        /// </summary>
+        private void scanNet_Start()
         {
-            Environment.Exit(0);
+            btnScanNet.Text = "Stop Scan";
+            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
+            picLoading.Image = Properties.Resources.load;
+            scan.scanNetwork(this, liveDevice, localIPv6);
         }
 
+        private void scanNet_Stop()
+        {
+            btnScanNet.Text = "Start Scan";
+            lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
+            picLoading.Image = null;
+        }   
 
         private void extractResources()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\IPv6-NetScanner\vendor-macs.xml";
             if (!File.Exists(path))
             {
-                File.WriteAllText(path, IPv6_NetScanner.Properties.Resources.mac_vendor);
+                File.WriteAllText(path, Properties.Resources.vendorMacs);
             }
         }
-
 
         private string getManufacturer(string pPhysicalAddress)
         {
@@ -171,20 +161,7 @@ namespace IPv6_NetScanner
 
             try
             {
-                const Int32 BufferSize = 128;
-                using (var fileStream = File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt"))
-                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
-                {
-                    String line;
-                    while ((line = streamReader.ReadLine()) != null)
-                    {
-                        if (line.Contains(pPhysicalAddress.Substring(0, 6)))
-                        {
-                            manufacturer = line.Remove(0, 6);
-                            break;
-                        }
-                    }
-                }
+                
             }
             catch (Exception) { }   
 
@@ -204,12 +181,6 @@ namespace IPv6_NetScanner
             }
 
             return returnList;
-        }
-
-        private void dataGV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Clipboard.SetText(dataGV.Rows[e.RowIndex].Cells[1].Value.ToString());
-            lblInfo.Text = "Cell content copied to clipboard!";
         }
     }
 }

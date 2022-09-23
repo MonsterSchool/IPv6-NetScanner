@@ -15,7 +15,7 @@ class Scan
     private int multiAddrIndex = 0;
 
     /// <summary>
-    /// Indicates whether a scan is active
+    /// Indicates whether a scan is active or not
     /// </summary>
     public bool scanStatus = false;
 
@@ -68,7 +68,7 @@ class Scan
     {
         try
         {
-            PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
+            Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
             if (packet != null)
             {
                 liveDevice.SendPacket(packet);
@@ -88,10 +88,10 @@ class Scan
     private void device_OnPacketArrival(object sender, PacketCapture e)
     {
         var rawPacket = e.GetPacket();
-        var packet = PacketDotNet.Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
-        EthernetPacket ethernetPacket = packet.Extract<PacketDotNet.EthernetPacket>();
-        IPv6Packet ipv6Packet = packet.Extract<PacketDotNet.IPv6Packet>();
-        IcmpV6Packet icmpv6Packet = packet.Extract<PacketDotNet.IcmpV6Packet>();
+        var packet = Packet.ParsePacket(rawPacket.LinkLayerType, rawPacket.Data);
+        EthernetPacket ethernetPacket = packet.Extract<EthernetPacket>();
+        IPv6Packet ipv6Packet = packet.Extract<IPv6Packet>();
+        IcmpV6Packet icmpv6Packet = packet.Extract<IcmpV6Packet>();
 
         if (ethernetPacket != null && ipv6Packet != null && icmpv6Packet != null)
         {
@@ -159,8 +159,6 @@ class Scan
         scanStatus = false;
         liveDevice.StopCapture();
 
-        mainForm.btnScanNet_Stop();
-        mainForm.btnShowHosts_Click(null, null);
         mainForm.Text = "IPv6-NetScanner";
     }
 

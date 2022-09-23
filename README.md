@@ -4,6 +4,7 @@
 
 # IPv6 Network Scanner
 This is a fast, simple and super lightweight IPv6 network scanner with graphical interface written with C#, [SharpPcap](https://github.com/chmorgan/sharppcap) and [PacketNet](https://github.com/chmorgan/packetnet).
+A very helpful article about IPv6 address scanning can be found here: [Sanning IPv6 Networks](https://www.dionach.com/blog/scanning-ipv6-networks/)
 
 ## Download IPv6 Network Scanner
 **Make sure you have [.NET 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework) and [Npcap](https://nmap.org/download.html) installed!**<br>
