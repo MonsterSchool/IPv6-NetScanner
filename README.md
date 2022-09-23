@@ -22,6 +22,8 @@ NetScanner sends four ICMPv6 Echo-Request messages over the specified network ca
 ```
 The entire scanning process takes a maximum of 8 seconds. Depending on the response, the different interfaces are assigned to the scopes.
 
+## MAC-Address Vendor Database
+The Database-File can be downloaded here: [Link](https://maclookup.app/downloads/cisco-vendor-macs-xml-database) 
 ## Changelog
 - V 0.9.2.1 - Project start. Implemented basic IP & MAC-Discovery.
 - V 1.0.2.1 and later - (Please have a look at the pre-release to see the changes)
