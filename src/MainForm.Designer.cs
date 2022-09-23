@@ -72,10 +72,10 @@ namespace IPv6_NetScanner
             // dUpDoIP
             // 
             this.dUpDoIP.BackColor = System.Drawing.Color.White;
-            this.dUpDoIP.Location = new System.Drawing.Point(465, 5);
+            this.dUpDoIP.Location = new System.Drawing.Point(418, 5);
             this.dUpDoIP.Name = "dUpDoIP";
             this.dUpDoIP.ReadOnly = true;
-            this.dUpDoIP.Size = new System.Drawing.Size(223, 20);
+            this.dUpDoIP.Size = new System.Drawing.Size(234, 20);
             this.dUpDoIP.TabIndex = 5;
             this.dUpDoIP.Text = "Select local IPv6";
             this.dUpDoIP.SelectedItemChanged += new System.EventHandler(this.dUpDoIP_SelectedItemChanged);
@@ -87,9 +87,9 @@ namespace IPv6_NetScanner
             this.lblInfo.AutoEllipsis = true;
             this.lblInfo.BackColor = System.Drawing.Color.LightGray;
             this.lblInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblInfo.Location = new System.Drawing.Point(694, 5);
+            this.lblInfo.Location = new System.Drawing.Point(658, 5);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(174, 20);
+            this.lblInfo.Size = new System.Drawing.Size(210, 20);
             this.lblInfo.TabIndex = 4;
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -98,7 +98,7 @@ namespace IPv6_NetScanner
             this.btnShowHosts.BackColor = System.Drawing.Color.White;
             this.btnShowHosts.FlatAppearance.BorderSize = 0;
             this.btnShowHosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowHosts.Location = new System.Drawing.Point(115, 5);
+            this.btnShowHosts.Location = new System.Drawing.Point(82, 6);
             this.btnShowHosts.Name = "btnShowHosts";
             this.btnShowHosts.Size = new System.Drawing.Size(80, 20);
             this.btnShowHosts.TabIndex = 3;
@@ -110,10 +110,10 @@ namespace IPv6_NetScanner
             // dUpDoDevice
             // 
             this.dUpDoDevice.BackColor = System.Drawing.Color.White;
-            this.dUpDoDevice.Location = new System.Drawing.Point(200, 5);
+            this.dUpDoDevice.Location = new System.Drawing.Point(166, 6);
             this.dUpDoDevice.Name = "dUpDoDevice";
             this.dUpDoDevice.ReadOnly = true;
-            this.dUpDoDevice.Size = new System.Drawing.Size(260, 20);
+            this.dUpDoDevice.Size = new System.Drawing.Size(246, 20);
             this.dUpDoDevice.TabIndex = 2;
             this.dUpDoDevice.Text = "Select Networkadapter";
             this.dUpDoDevice.SelectedItemChanged += new System.EventHandler(this.dUpDoDevice_SelectedItemChanged);
@@ -136,9 +136,9 @@ namespace IPv6_NetScanner
             this.btnScanNet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScanNet.Location = new System.Drawing.Point(5, 5);
             this.btnScanNet.Name = "btnScanNet";
-            this.btnScanNet.Size = new System.Drawing.Size(105, 20);
+            this.btnScanNet.Size = new System.Drawing.Size(73, 20);
             this.btnScanNet.TabIndex = 0;
-            this.btnScanNet.Text = "Start Networkscan";
+            this.btnScanNet.Text = "Start Scan";
             this.btnScanNet.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnScanNet.UseVisualStyleBackColor = false;
             this.btnScanNet.Click += new System.EventHandler(this.btnScanNet_Click);
@@ -251,7 +251,6 @@ namespace IPv6_NetScanner
         private System.Windows.Forms.Button btnScanNet;
         private System.Windows.Forms.DataGridView dataGV;
         private System.Windows.Forms.DomainUpDown dUpDoDevice;
-        private System.Windows.Forms.Button btnShowHosts;
         public System.Windows.Forms.PictureBox picLoading;
         public System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.DomainUpDown dUpDoIP;
@@ -259,6 +258,7 @@ namespace IPv6_NetScanner
         private System.Windows.Forms.DataGridViewTextBoxColumn EthernetAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Info;
         private System.Windows.Forms.DataGridViewTextBoxColumn Manufacturer;
+        public System.Windows.Forms.Button btnShowHosts;
     }
 }
 

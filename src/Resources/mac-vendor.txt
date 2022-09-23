@@ -12796,6 +12796,7 @@
 010ECF	PROFINET Multicast
 020406	BBN				internal usage (not registered)
 020701	Interlan [now Racal-InterLAN]	DEC (UNIBUS or QBUS), Apollo, Cisco
+021018	Broadcom (Telekom)
 021C7C	PERQ SYSTEMS CORPORATION
 022048	At least some 2810 send with locally assigned flag set
 026060	3com
@@ -16588,6 +16589,7 @@
 5CFC66	Cisco Systems, Inc
 5CFF35	Wistron Corporation
 5CFFFF	Shenzhen Kezhonglong Optoelectronic Technology Co., Ltd
+5E91C4	OnePlus (Smartphone)
 600194	Espressif Inc.
 600292	PEGATRON CORPORATION
 6002B4	Wistron Neweb Corporation

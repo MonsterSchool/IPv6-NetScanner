@@ -66,15 +66,19 @@ class Scan
     /// </summary>
     private void performNetworkscan(IPAddress pLocalIPv6, int pMultiAddrIndex)
     {
-        PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
-        if (packet != null)
+        try
         {
-            liveDevice.SendPacket(packet);
+            PacketDotNet.Packet packet = networkPacket.buildPacket(liveDevice, pLocalIPv6, pMultiAddrIndex);
+            if (packet != null)
+            {
+                liveDevice.SendPacket(packet);
+            }
+            else
+            {
+                mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Error! The network adapter cannot be used!";
+            }
         }
-        else
-        {
-            mainForm.lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Error! The network adapter cannot be used!";
-        }
+        catch (Exception) { }
     }
 
     /// <summary>
@@ -156,7 +160,7 @@ class Scan
         liveDevice.StopCapture();
 
         mainForm.btnScanNet_Stop();
-        mainForm.refreshHostList();
+        mainForm.btnShowHosts_Click(null, null);
         mainForm.Text = "IPv6-NetScanner";
     }
 

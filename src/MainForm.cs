@@ -1,6 +1,7 @@
 ﻿using SharpPcap;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -54,15 +55,17 @@ namespace IPv6_NetScanner
 
         private void btnScanNet_Start()
         {
-            btnScanNet.Text = "Stop Networkscan";
+            btnScanNet.Text = "Stop Scan";
             lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan started...";
             picLoading.Image = IPv6_NetScanner.Properties.Resources.load;
+
+            Debug.WriteLine("Local IPv6: " + localIPv6.ToString());
             scan.scanNetwork(this, liveDevice, localIPv6);
         }
 
         public void btnScanNet_Stop()
         {
-            btnScanNet.Text = "Start Networkscan";
+            btnScanNet.Text = "Start Scan";
             lblInfo.Text = DateTime.Now.ToLongTimeString() + ": Scan stopped...";
             picLoading.Image = null;
             // scan.stopScan();
@@ -125,32 +128,25 @@ namespace IPv6_NetScanner
             }
         }
 
-        private void btnShowHosts_Click(object sender, EventArgs e)
+        public void btnShowHosts_Click(object sender, EventArgs e)
         {
-            refreshHostList();
-        }
-
-        public void refreshHostList()
-        {
-            Thread bgThread = new Thread(displayHostList);
-            bgThread.Start();
-        }
-
-        private void displayHostList()
-        {
-            lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
-
-            while (dataGV.Rows.Count > 0)
+            try
             {
-                dataGV.Rows.Remove(dataGV.Rows[0]);
-            }
+                lblInfo.Text = "Total amount of hosts found: " + scan.retrievHosts().Count;
 
-            foreach (Host host in scan.retrievHosts())
-            {
-                string[] row = new string[] { host.ipAddress.ToString(), string.Join("-", host.physicalAddress.GetAddressBytes().Select(b => b.ToString("X2"))), host.info, getManufacturer(host.physicalAddress.ToString()) };
-                dataGV.Rows.Add(row);
-                Thread.Sleep(50);
+                while (dataGV.Rows.Count > 0)
+                {
+                    dataGV.Rows.Remove(dataGV.Rows[0]);
+                }
+
+                foreach (Host host in scan.retrievHosts())
+                {
+                    string[] row = new string[] { host.ipAddress.ToString(), string.Join("-", host.physicalAddress.GetAddressBytes().Select(b => b.ToString("X2"))), host.info, getManufacturer(host.physicalAddress.ToString()) };
+                    dataGV.Rows.Add(row);
+                    Thread.Sleep(50);
+                }
             }
+            catch (Exception) { }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,20 +168,25 @@ namespace IPv6_NetScanner
         private string getManufacturer(string pPhysicalAddress)
         {
             string manufacturer = "Not Found";
-            const Int32 BufferSize = 128;
-            using (var fileStream = File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt"))
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
+
+            try
             {
-                String line;
-                while ((line = streamReader.ReadLine()) != null)
+                const Int32 BufferSize = 128;
+                using (var fileStream = File.OpenRead(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\mac-vendor.txt"))
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
                 {
-                    if (line.Contains(pPhysicalAddress.Substring(0, 6)))
+                    String line;
+                    while ((line = streamReader.ReadLine()) != null)
                     {
-                        manufacturer = line.Remove(0, 6);
-                        break;
+                        if (line.Contains(pPhysicalAddress.Substring(0, 6)))
+                        {
+                            manufacturer = line.Remove(0, 6);
+                            break;
+                        }
                     }
                 }
             }
+            catch (Exception) { }   
 
             return manufacturer;
         }
