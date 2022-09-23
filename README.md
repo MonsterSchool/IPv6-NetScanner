@@ -19,9 +19,6 @@ The entire scanning process takes a maximum of 8 seconds. Depending on the respo
 
 ## MAC-Address Vendor Database
 The Database-File can be downloaded here: [Link](https://maclookup.app/downloads/cisco-vendor-macs-xml-database) 
-## Changelog
-- V 0.9.2.1 - Project start. Implemented basic IP & MAC-Discovery.
-- V 1.0.2.1 and later - (Please have a look at the pre-release to see the changes)
 
 ## Copyright
 The contents and works in this software created by the software operators are subject to German copyright law. The reproduction, editing, distribution and any kind of use outside the limits of copyright law require the written consent of the respective author or creator. Downloads and copies of this software are only permitted for private, non-commercial use.
